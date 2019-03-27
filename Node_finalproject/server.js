@@ -22,29 +22,6 @@ app.set('view engine','hbs');
 app.use(express.static(__dirname+'/views/public'));
 app.use(express.static(__dirname+'/views'));
 
-
-/*MongoClient.connect(uri,{ useNewUrlParser: true }, function(err, client) {
-    assert.equal(null, err);
-    const db = client.db("Clicker");
-    db.collection('Users').insertOne({
-        _id: "dsadfad",
-        Email : "Reakin@gmail.com",
-        password : "112343452"
-
-    }).then(function(result){
-
-    });
-    doc =  db.collection('Users').findOne({Username: "Eakin"})
-        .then(function (doc) {
-            if(doc == null){
-                console.log('User does not exist')
-            }else{
-                console.log('User exists')
-            }
-        });
-    client.close();
-});*/
-
 app.get('/clicker',(request, response)=>{
     response.render('clicker.hbs');
     console.log(request.cookies.ID)
