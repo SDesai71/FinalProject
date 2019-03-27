@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>I am a Title</title>
+
+</head>
+
+<body>
+<h1>Node Clicker</h1>
+<p>This is apparently a game :)</p>
+
+<div>
+    clicks: <span id="clicks"></span><br>
+    total clicks: <span id="totalClicks"></span><br>
+    lvl: <span id="clickerLvl"></span><br>
+    <button onclick="clicker.click()">Click!</button><br>
+    LvlUp price: <span id="lvlprice"></span><br>
+    <button onclick="clicker.lvlUp()">Lvl Up</button>
+    <hr>
+    <span id="autoclickarea"></span>
+    <script src="Clicker.js" type="application/javascript" charset="UTF-8"></script>
+    <script>
+        clicker = new Clicker(1,0,0);
+        autoclick = new AutoClicker(0,20,'Auto CLick');
+        autoclick = new AutoClicker(0,40,'ClickHere');
+    </script>
+
+</div>
+</body>
+
+{{> footer}}
+
+</html>
