@@ -1,4 +1,3 @@
-//Hello World FFS
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const hbs = require('hbs');
@@ -42,13 +41,11 @@ app.post('/login',(request,response)=>{
                     response.redirect('/');
                 }else{
                     console.log('User Found');
-                    //console.log(doc._id);
                     response.cookie('ID',doc._id,{maxAge : 1000*60*15});
                     response.redirect('/clicker');
                 }
             })
     });
-    //response.render('login.hbs');
 });
 
 app.post('/register',(request,response)=>{
