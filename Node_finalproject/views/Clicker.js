@@ -100,8 +100,9 @@ class AutoClicker{
     }
 }
 
-let clicks = 0;
-let total_clicks = 0;
+
+let clicks = parseInt(document.getElementById('storedclicks').value);
+let total_clicks = parseInt(document.getElementById('storedTotalClicks').value);
 var autoclickarea = document.getElementById('autoclickarea');
 var numclicks = document.getElementById('clicks');
 var totalclicks = document.getElementById('totalClicks');

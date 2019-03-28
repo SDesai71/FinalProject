@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>I am a Title</title>
-
 </head>
 
 <body>
+<input type="hidden" id="storedclicks" value={{clicks}}>
+<input type="hidden" id="storedTotalClicks" value={{totalClicks}}>
 <h1>Node Clicker</h1>
 <p>This is apparently a game :)</p>
+
 
 <div>
     clicks: <span id="clicks"></span><br>
@@ -22,11 +24,10 @@
     <span id="autoclickarea"></span>
     <script src="Clicker.js" type="application/javascript" charset="UTF-8"></script>
     <script>
-        clicker = new Clicker(1,0,0);
-        autoclick = new AutoClicker(0,20,'Auto CLick');
-        autoclick = new AutoClicker(0,40,'ClickHere');
+        clicker = new Clicker({{lvl}});
+        autoclick = new AutoClicker(0,20,'Auto Click');
     </script>
-
+    {{totalClicks}}
 </div>
 </body>
 
