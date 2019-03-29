@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <title>I am a Title</title>
 </head>
-
 <body>
-<input type="hidden" id="storedclicks" value={{clicks}}>
-<input type="hidden" id="storedTotalClicks" value={{totalClicks}}>
+
+
 <h1>Node Clicker</h1>
 <p>This is apparently a game :)</p>
-
+<!--Initializes sent variables-->
+<input type="hidden" id="storedclicks" value={{clicks}}>
+<input type="hidden" id="storedTotalClicks" value={{totalClicks}}>
 
 <div>
     clicks: <span id="clicks"></span><br>
@@ -27,7 +28,9 @@
         clicker = new Clicker({{lvl}});
         autoclick = new AutoClicker(0,20,'Auto Click');
     </script>
-    {{totalClicks}}
+    <script>
+        xhrsend()
+    </script>
 </div>
 </body>
 

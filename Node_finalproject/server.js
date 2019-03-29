@@ -2,7 +2,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const hbs = require('hbs');
 const MongoClient = require('mongodb').MongoClient;
-const assert = require("assert");
 const bodyParser = require('body-parser');
 const uuid = require('uuid/v1');
 
@@ -29,7 +28,6 @@ app.get('/clicker',(request, response)=>{
             var database = client.db("Clicker");
             database.collection('Scores').findOne({_id: request.signedCookies.ID})
                 .then(function (doc) {
-                    //console.log(doc);
                     response.render('clicker.hbs',{
                         lvl:doc.lvl,
                         totalClicks: doc.totalClicks,
@@ -56,7 +54,7 @@ app.post('/login',(request,response)=>{
                     response.redirect('/');
                 }else{
                     console.log('User Found');
-                    response.cookie('ID',doc._id,{maxAge : 1000*60*15, signed: true});
+                    response.cookie('ID',doc._id,{maxAge : 3000*60*15, signed: true});
                     response.redirect('/clicker');
                 }
             })
@@ -84,7 +82,7 @@ app.post('/register',(request,response)=>{
                        lvl: 1
                    });
                    console.log("User added to Database");
-                   response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
+                   response.cookie('ID',uid,{maxAge : 3000*60*15, signed:true});
                    response.redirect('/');
                }else{
                    console.log('Did not write to database');
@@ -107,6 +105,11 @@ app.put('/logOut', (response, request)=>{
         })
     })
 });
+
+app.post('/test',(res,req)=>{
+    console.log(res.body)
+})
+
 
 app.listen(8080,() =>{
    console.log(('server is up and listing on port 8080'))

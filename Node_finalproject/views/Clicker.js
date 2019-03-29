@@ -1,3 +1,11 @@
+var xhr = new window.XMLHttpRequest(),
+    method = "post",
+    url = "http://localhost:8080/test";
+
+
+
+
+
 //this is where the game will be made
 class Clicker{
     //This will be the actual button that the user clicks on :)
@@ -7,7 +15,7 @@ class Clicker{
 
         this.lvlDisplay = document.getElementById('clickerLvl');
         this.priceDisplay = document.getElementById('lvlprice');
-
+        this.display()
         this.sender()
     }
 
@@ -106,3 +114,20 @@ let total_clicks = parseInt(document.getElementById('storedTotalClicks').value);
 var autoclickarea = document.getElementById('autoclickarea');
 var numclicks = document.getElementById('clicks');
 var totalclicks = document.getElementById('totalClicks');
+
+
+
+function xhrsend(){
+    console.log(numclicks.innerHTML);
+    xhr.open(method,url,true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    let data =
+        {
+            clicks: numclicks.innerHTML,
+            totalClicks: totalclicks.innerHTML
+        };
+    console.log(data);
+    xhr.send(JSON.stringify(data));
+}
+
+setInterval(xhrsend, 20000);
