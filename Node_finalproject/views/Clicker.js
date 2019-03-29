@@ -123,10 +123,11 @@ function xhrsend(){
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     let data =
         {
-            clicks: numclicks.innerHTML,
-            totalClicks: totalclicks.innerHTML
+            Clicks: numclicks.innerHTML,
+            totalClicks: totalclicks.innerHTML,
+            lvl: document.getElementById("clickerLvl").innerHTML
         };
-    console.log(data);
+    console.log(JSON.stringify(data));
     xhr.send(JSON.stringify(data));
 }
 

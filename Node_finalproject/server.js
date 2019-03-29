@@ -50,10 +50,10 @@ app.post('/login',(request,response)=>{
         database.collection('Users').findOne({Username: request.body.Username, Password: request.body.Password})
             .then(function (doc) {
                 if(doc == null){
-                    console.log('Invalid Username or Password');
+                    //console.log('Invalid Username or Password');
                     response.redirect('/');
                 }else{
-                    console.log('User Found');
+                    //console.log('User Found');
                     response.cookie('ID',doc._id,{maxAge : 3000*60*15, signed: true});
                     response.redirect('/clicker');
                 }
@@ -93,22 +93,35 @@ app.post('/register',(request,response)=>{
    });
 });
 
-app.put('/logOut', (response, request)=>{
-    newinfo = {totalClicks:request.body.totalClicks,Clicks:request.body.clicks,lvl:request.body.lvl};
-    MongoClient.connect(uri, {useNewUrlParser:true}, (err,client)=>{
-        database.collection('Scores').updateOne({_id:response.signedCookies.ID},newinfo,function (err,res){
-        if(err) throw err;
-        console.log("document Updated");
-        database.close();
-        response.clearCookie('ID');
-        response.redirect('/login')
+app.post('/logout',(res,req)=> {
+    let query = {_id: res.signedCookies.ID};
+    let info = {$set:res.body};
+    // console.log(query);
+    // console.log(info);
+    MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
+        var database = client.db("Clicker");
+        database.collection('Scores').updateOne(query, info, function (err, res) {
+            if (err) throw err;
+            console.log('doc updated!');
+            console.log('User log out');
+            res.clearCookie('ID');
+            res.redirect('/');
         })
     })
 });
-
-app.post('/test',(res,req)=>{
-    console.log(res.body)
-})
+app.post('/test',(res,req)=> {
+    let query = {_id: res.signedCookies.ID};
+    let info = {$set:res.body};
+    // console.log(query);
+    // console.log(info);
+    MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
+        var database = client.db("Clicker");
+        database.collection('Scores').updateOne(query, info, function (err, res) {
+            if (err) throw err;
+            console.log('doc updated!');
+        })
+    })
+});
 
 
 app.listen(8080,() =>{
