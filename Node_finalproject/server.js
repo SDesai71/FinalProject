@@ -8,15 +8,13 @@ const uuid = require('uuid/v1');
 const uri = "mongodb+srv://RJEakin:xgk6viue@node-cluster-sriig.mongodb.net/test?retryWrites=true";
 
 var app = express();
+
 app.use(cookieParser('secret'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
-
-
 hbs.registerPartials(__dirname+'/views/partials');
 
 app.set('view engine','hbs');
-
 app.use(express.static(__dirname+'/views/public'));
 app.use(express.static(__dirname+'/views'));
 
@@ -50,11 +48,9 @@ app.post('/login',(request,response)=>{
         database.collection('Users').findOne({Username: request.body.Username, Password: request.body.Password})
             .then(function (doc) {
                 if(doc == null){
-                    //console.log('Invalid Username or Password');
                     response.redirect('/');
                 }else{
-                    //console.log('User Found');
-                    response.cookie('ID',doc._id,{maxAge : 3000*60*15, signed: true});
+                    response.cookie('ID',doc._id,{maxAge : 1000*60*15, signed: true});
                     response.redirect('/clicker');
                 }
             })
@@ -82,8 +78,8 @@ app.post('/register',(request,response)=>{
                        lvl: 1
                    });
                    console.log("User added to Database");
-                   response.cookie('ID',uid,{maxAge : 3000*60*15, signed:true});
-                   response.redirect('/');
+                   response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
+                   response.redirect('/clicker');
                }else{
                    console.log('Did not write to database');
                    response.redirect('/');
@@ -93,11 +89,9 @@ app.post('/register',(request,response)=>{
    });
 });
 
-app.post('/logout',(res,req)=> {
-    let query = {_id: res.signedCookies.ID};
-    let info = {$set:res.body};
-    // console.log(query);
-    // console.log(info);
+app.post('/logout',(req,res)=> {
+    let query = {_id: req.signedCookies.ID};
+    let info = {$set:req.body};
     MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
         var database = client.db("Clicker");
         database.collection('Scores').updateOne(query, info, function (err, res) {
@@ -109,20 +103,18 @@ app.post('/logout',(res,req)=> {
         })
     })
 });
-app.post('/test',(res,req)=> {
-    let query = {_id: res.signedCookies.ID};
-    let info = {$set:res.body};
-    // console.log(query);
-    // console.log(info);
+
+
+app.post('/test',(req,res)=> {
+    let query = {_id: req.signedCookies.ID};
+    let info = {$set:req.body};
     MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
         var database = client.db("Clicker");
         database.collection('Scores').updateOne(query, info, function (err, res) {
             if (err) throw err;
-            console.log('doc updated!');
         })
     })
 });
-
 
 app.listen(8080,() =>{
    console.log(('server is up and listing on port 8080'))
