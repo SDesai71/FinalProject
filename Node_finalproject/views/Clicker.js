@@ -121,7 +121,7 @@ function xhrsend(){
             Clicks: numclicks.innerHTML,
             totalClicks: totalclicks.innerHTML,
             lvl: document.getElementById("clickerLvl").innerHTML,
-            autolvl: autoclickarea.innerHTML
+            autolvl: document.getElementById("AutoClickautoclicklvl").innerHTML
         };
     //console.log(JSON.stringify(data));
     xhr.send(JSON.stringify(data));

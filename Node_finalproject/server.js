@@ -90,6 +90,7 @@ app.post('/register',(request,response)=>{
 });
 
 app.post('/logout',(req,res)=> {
+    //console.log(req)
     let query = {_id: req.signedCookies.ID};
     let info = {$set:req.body};
     MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {

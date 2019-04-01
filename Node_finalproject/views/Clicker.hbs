@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <title>I am a Title</title>
+    <link rel="stylesheet" href="NavbarStyle.css">
 </head>
 <body>
 
-
+{{> Navbar}}
 <h1>Node Clicker</h1>
 <p>This is apparently a game :)</p>
 <!--Initializes sent variables-->
 <input type="hidden" id="storedclicks" value={{clicks}}>
 <input type="hidden" id="storedTotalClicks" value={{totalClicks}}>
+
+
+
 
 <div>
     clicks: <span id="clicks"></span><br>
@@ -26,7 +30,7 @@
     <script src="Clicker.js" type="application/javascript" charset="UTF-8"></script>
     <script>
         clicker = new Clicker({{lvl}});
-        autoclick = new AutoClicker(0,20,'Auto Click');
+        autoclick = new AutoClicker(0,20,'AutoClick');
     </script>
     <script>
         xhrsend()
