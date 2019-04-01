@@ -77,7 +77,7 @@ app.post('/register',(request,response)=>{
                        Clicks: 0,
                        lvl: 1
                    });
-                   console.log("User added to Database");
+                   console.log("User added to database");
                    response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
                    response.redirect('/clicker');
                }else{
@@ -98,7 +98,7 @@ app.post('/logout',(req,res)=> {
         database.collection('Scores').updateOne(query, info, function (err, res) {
             if (err) throw err;
             console.log('doc updated!');
-            console.log('User log out');
+            console.log('User logged out');
             res.clearCookie('ID');
             res.redirect('/');
         })
