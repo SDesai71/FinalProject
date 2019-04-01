@@ -54,7 +54,7 @@ app.post('/login',(request,response)=>{
                     response.redirect('/');
                 }else{
                     //console.log('User Found');
-                    response.cookie('ID',doc._id,{maxAge : 3000*60*15, signed: true});
+                    response.cookie('ID',doc._id,{maxAge : 1000*60*15, signed: true});
                     response.redirect('/clicker');
                 }
             })
@@ -82,7 +82,7 @@ app.post('/register',(request,response)=>{
                        lvl: 1
                    });
                    console.log("User added to Database");
-                   response.cookie('ID',uid,{maxAge : 3000*60*15, signed:true});
+                   response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
                    response.redirect('/');
                }else{
                    console.log('Did not write to database');
@@ -96,8 +96,6 @@ app.post('/register',(request,response)=>{
 app.post('/logout',(res,req)=> {
     let query = {_id: res.signedCookies.ID};
     let info = {$set:res.body};
-    // console.log(query);
-    // console.log(info);
     MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
         var database = client.db("Clicker");
         database.collection('Scores').updateOne(query, info, function (err, res) {
@@ -112,8 +110,6 @@ app.post('/logout',(res,req)=> {
 app.post('/test',(res,req)=> {
     let query = {_id: res.signedCookies.ID};
     let info = {$set:res.body};
-    // console.log(query);
-    // console.log(info);
     MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
         var database = client.db("Clicker");
         database.collection('Scores').updateOne(query, info, function (err, res) {
