@@ -2,10 +2,6 @@ var xhr = new window.XMLHttpRequest(),
     method = "post",
     url = "http://localhost:8080/update";
 
-var logxhr = new window.XMLHttpRequest(),
-    logmethod = "post",
-    logurl = "http://localhost:8080/logout";
-
 //this is where the game will be made
 class Clicker{
     //This will be the actual button that the user clicks on :)
@@ -125,7 +121,6 @@ function xhrsend(){
             lvl: document.getElementById("clickerLvl").innerHTML,
             autolvl: document.getElementById("AutoClickautoclicklvl").innerHTML
         };
-    //console.log(JSON.stringify(data));
     xhr.send(JSON.stringify(data));
 }
 
