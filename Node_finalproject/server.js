@@ -27,13 +27,15 @@ app.get('/clicker',(request, response)=>{
             database.collection('Scores').findOne({_id: request.signedCookies.ID})
                 .then(function (doc) {
                     response.render('clicker.hbs',{
+                        username:doc.Username,
                         lvl:doc.lvl,
                         totalClicks: doc.totalClicks,
-                        clicks: doc.Clicks
+                        clicks: doc.Clicks,
+                        autolvl:doc.autolvl
                     });
                 })
         });
-        console.log(request.signedCookies.ID)
+        //console.log(request.signedCookies.ID)
     }
 });
 
@@ -75,7 +77,8 @@ app.post('/register',(request,response)=>{
                        Username: request.body.Username,
                        totalClicks: 0,
                        Clicks: 0,
-                       lvl: 1
+                       lvl: 1,
+                       autolvl:0
                    });
                    console.log("User added to database");
                    response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
@@ -83,30 +86,18 @@ app.post('/register',(request,response)=>{
                }else{
                    console.log('Did not write to database');
                    response.redirect('/');
-                   database.close()
                }
            })
    });
 });
 
-app.post('/logout',(req,res)=> {
-    //console.log(req)
-    let query = {_id: req.signedCookies.ID};
-    let info = {$set:req.body};
-    MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
-        var database = client.db("Clicker");
-        database.collection('Scores').updateOne(query, info, function (err, res) {
-            if (err) throw err;
-            console.log('doc updated!');
-            console.log('User logged out');
-            res.clearCookie('ID');
-            res.redirect('/');
-        })
-    })
+app.get('/logout',(req,response)=> {
+    response.clearCookie('ID');
+    response.redirect('/')
 });
 
 
-app.post('/test',(req,res)=> {
+app.post('/update',(req,res)=> {
     let query = {_id: req.signedCookies.ID};
     let info = {$set:req.body};
     MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {

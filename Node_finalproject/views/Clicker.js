@@ -1,6 +1,10 @@
 var xhr = new window.XMLHttpRequest(),
     method = "post",
-    url = "http://localhost:8080/test";
+    url = "http://localhost:8080/update";
+
+var logxhr = new window.XMLHttpRequest(),
+    logmethod = "post",
+    logurl = "http://localhost:8080/logout";
 
 //this is where the game will be made
 class Clicker{
@@ -110,8 +114,6 @@ let total_clicks = parseInt(document.getElementById('storedTotalClicks').value);
 var autoclickarea = document.getElementById('autoclickarea');
 var numclicks = document.getElementById('clicks');
 var totalclicks = document.getElementById('totalClicks');
-
-
 
 function xhrsend(){
     xhr.open(method,url,true);

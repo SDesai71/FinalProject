@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>I am a Title</title>
+    <title>Node Clicker</title>
     <link rel="stylesheet" href="NavbarStyle.css">
 </head>
 <body>
-
-{{> Navbar}}
 <h1>Node Clicker</h1>
+{{> Navbar}}
+
 <p>This is apparently a game :)</p>
 <!--Initializes sent variables-->
 <input type="hidden" id="storedclicks" value={{clicks}}>
@@ -30,7 +30,7 @@
     <script src="Clicker.js" type="application/javascript" charset="UTF-8"></script>
     <script>
         clicker = new Clicker({{lvl}});
-        autoclick = new AutoClicker(0,20,'AutoClick');
+        autoclick = new AutoClicker({{autolvl}},20,'AutoClick');
     </script>
     <script>
         xhrsend()
