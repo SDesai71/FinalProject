@@ -124,4 +124,4 @@ function xhrsend(){
     xhr.send(JSON.stringify(data));
 }
 
-setInterval(xhrsend, 20000);
+setInterval(xhrsend, 15000);
