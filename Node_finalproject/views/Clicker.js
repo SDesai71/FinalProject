@@ -11,7 +11,7 @@ class Clicker{
 
         this.lvlDisplay = document.getElementById('clickerLvl');
         this.priceDisplay = document.getElementById('lvlprice');
-        this.display()
+        this.display();
         this.sender()
     }
 
@@ -54,7 +54,7 @@ class AutoClicker{
         this.area.id = name+'autoclick';
 
         this.lvldisplay = document.createElement("div");
-        this.lvldisplay.id = name+'autoclicklvl';
+        this.lvldisplay.id = name+'lvl';
 
         this.pricedisplay = document.createElement("div");
         this.pricedisplay.id = name+"displayprice";
@@ -75,20 +75,25 @@ class AutoClicker{
         autoclickarea.append(this.area);
 
         this.sender();
-        setInterval(this.click.bind(this), this.interval)
+        this.autoclicker = setInterval(this.click.bind(this), this.interval)
     }
 
     click(){
+        if(this.lvl >= 1){
         clicks += 1;
         total_clicks += 1;
         this.display();
         }
+    }
 
     lvlUp(){
         if(clicks >= this.nextPrice) {
             clicks -= this.nextPrice;
             this.nextPrice += 10*this.lvl;
             this.lvl += 1;
+            clearInterval(this.autoclicker);
+            this.interval = 5/this.lvl*1000;
+            this.autoclicker = setInterval(this.click.bind(this), this.interval);
             this.sender();
         }
     }
@@ -119,7 +124,7 @@ function xhrsend(){
             Clicks: numclicks.innerHTML,
             totalClicks: totalclicks.innerHTML,
             lvl: document.getElementById("clickerLvl").innerHTML,
-            autolvl: document.getElementById("AutoClickautoclicklvl").innerHTML
+            autolvl: document.getElementById("AutoClicklvl").innerHTML
         };
     xhr.send(JSON.stringify(data));
 }

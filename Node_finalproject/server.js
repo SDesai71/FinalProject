@@ -65,7 +65,7 @@ app.post('/register',(request,response)=>{
        database.collection('Users').findOne({Username: request.body.Username})
            .then(function (doc) {
                if(doc == null){
-                   console.log('User does not exist');
+                   //console.log('User does not exist');
                    database.collection("Users").insertOne({
                        _id: uid,
                        Username: request.body.Username,
@@ -79,7 +79,7 @@ app.post('/register',(request,response)=>{
                        lvl: 1,
                        autolvl:0
                    });
-                   console.log("User added to database");
+                   //console.log("User added to database");
                    response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
                    response.redirect('/clicker');
                }else{
@@ -100,7 +100,7 @@ app.get('/getscores',(req,res)=>{
         database.collection('Scores').find().project({Username: 1, totalClicks: 1, _id: 0}).toArray((err,result)=>{
             if (err) res.send('Error querying database!');
             result.sort(function (a,b) {return b.totalClicks - a.totalClicks});
-            console.log(result);
+            //console.log(result);
             res.send(result)
         })
     })

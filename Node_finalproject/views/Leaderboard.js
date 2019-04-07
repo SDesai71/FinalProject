@@ -17,13 +17,12 @@ getscores = xhr.onreadystatechange = function () {
         scores = JSON.parse(this.response);
 
 
-        for (var score = 0; score <= 1; score++){
+        for (var score = 0; score <= 9; score++){
             unames += scores[score].Username+"\n";
             uscore += scores[score].totalClicks+"\n";
         }
         document.getElementById('names').innerText = unames;
         document.getElementById('userscores').innerText = uscore;
-
         }
 };
 
