@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Node Clicker</title>
+    <link rel="stylesheet" href="ClickerStyles.css">
 </head>
 <body>
 <h1>Node Clicker</h1>
@@ -12,29 +13,39 @@
 <input type="hidden" id="storedclicks" value={{clicks}}>
 <input type="hidden" id="storedTotalClicks" value={{totalClicks}}>
 
-<div>
-    clicks: <span id="clicks"></span><br>
-    total clicks: <span id="totalClicks"></span><br>
-    lvl: <span id="clickerLvl"></span><br>
-    <button onclick="clicker.click()">Click!</button><br>
-    LvlUp price: <span id="lvlprice"></span><br>
-    <button onclick="clicker.lvlUp()">Lvl Up</button>
-    <hr>
-    <span id="autoclickarea"></span>
-    <script src="Clicker.js" type="application/javascript" charset="UTF-8"></script>
-    <script>
-        clicker = new Clicker({{lvl}});
-        autoclick = new AutoClicker({{autolvl}},20,'AutoClick');
-    </script>
+<div class="grid-container">
+        <div style="grid-column: 2; grid-row: 1/ span 2">
+            <div onclick="clicker.lvlUp()">
+                Clicker<br>
+                lvl: <span id="clickerLvl"></span><br>
+                LvlUp price: <span id="lvlprice"></span><br>
+                <hr>
+            </div>
+            <span id="autoclickarea"></span>
+        </div>
+
+        <div style="grid-column: 3; text-align: center">
+            clicks: <span id="clicks"></span><br>
+            total clicks: <span id="totalClicks"></span>
+        </div>
+        <div style="grid-column: 3; grid-row: 2" onclick="clicker.click()">
+            I am a Placeholder!
+        </div>
+
 </div>
-
-{{> footer}}
-
 </body>
 
+<script src="Clicker.js" type="application/javascript" charset="UTF-8"></script>
 <script>
+    clicker = new Clicker({{lvl}});
+    autoclick = new AutoClicker({{autolvl}},20,'AutoClick');
+    anotherclicker1 = new AutoClicker(0,100,'anotherclicker');
+    anotherclicker2 = new AutoClicker(0,100,'anotherclicker');
+    anotherclicker3 = new AutoClicker(0,100,'anotherclicker');
+    anotherclicker4 = new AutoClicker(0,100,'anotherclicker');
+    anotherclicker5 = new AutoClicker(0,100,'anotherclicker');
+
     xhrsend()
 </script>
-
 
 </html>

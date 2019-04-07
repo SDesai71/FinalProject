@@ -52,6 +52,7 @@ class AutoClicker{
 
         this.area = document.createElement("div");
         this.area.id = name+'autoclick';
+        this.area.onclick = this.lvlUp.bind(this)
 
         this.lvldisplay = document.createElement("div");
         this.lvldisplay.id = name+'lvl';
@@ -61,16 +62,13 @@ class AutoClicker{
 
         this.button = document.createElement("button");
         this.button.innerHTML = name+"LvlUp";
-        this.button.onclick = this.lvlUp.bind(this);
+        //this.button.onclick = this.lvlUp.bind(this);
 
-        this.area.append(document.createTextNode(name+"Level: "));
+        this.area.append(document.createTextNode(name+"Level:"));
         this.area.append(this.lvldisplay);
-        this.area.append(document.createElement("br"));
 
         this.area.append(document.createTextNode(name+"LvlUpPrice: "));
         this.area.append(this.pricedisplay);
-        this.area.append(document.createElement("br"));
-        this.area.append(this.button);
         this.area.append(document.createElement("hr"));
         autoclickarea.append(this.area);
 
