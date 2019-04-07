@@ -48,6 +48,7 @@ class AutoClicker{
     constructor(lvl,price,name){
         this.lvl = lvl;
         this.nextPrice = price*this.lvl+100;
+        this.interval = 5/this.lvl*1000;
 
         this.area = document.createElement("div");
         this.area.id = name+'autoclick';
@@ -62,7 +63,6 @@ class AutoClicker{
         this.button.innerHTML = name+"LvlUp";
         this.button.onclick = this.lvlUp.bind(this);
 
-
         this.area.append(document.createTextNode(name+"Level: "));
         this.area.append(this.lvldisplay);
         this.area.append(document.createElement("br"));
@@ -75,12 +75,12 @@ class AutoClicker{
         autoclickarea.append(this.area);
 
         this.sender();
-        setInterval(this.click.bind(this), 1500)
+        setInterval(this.click.bind(this), this.interval)
     }
 
     click(){
-        clicks += this.lvl;
-        total_clicks += this.lvl;
+        clicks += 1;
+        total_clicks += 1;
         this.display();
         }
 

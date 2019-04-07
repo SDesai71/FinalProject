@@ -35,7 +35,6 @@ app.get('/clicker',(request, response)=>{
                     });
                 })
         });
-        //console.log(request.signedCookies.ID)
     }
 });
 
@@ -94,6 +93,21 @@ app.post('/register',(request,response)=>{
 app.get('/logout',(req,response)=> {
     response.clearCookie('ID');
     response.redirect('/')
+});
+app.get('/getscores',(req,res)=>{
+    MongoClient.connect(uri,{useNewUrlParser: true}, (err,client)=>{
+        var database = client.db('Clicker');
+        database.collection('Scores').find().project({Username: 1, totalClicks: 1, _id: 0}).toArray((err,result)=>{
+            if (err) res.send('Error querying database!');
+            result.sort(function (a,b) {return b.totalClicks - a.totalClicks});
+            console.log(result);
+            res.send(result)
+        })
+    })
+});
+
+app.get('/leaderboard',(req,res)=>{
+    res.render('leaderboard.hbs');
 });
 
 
