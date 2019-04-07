@@ -14,7 +14,7 @@
 <input type="hidden" id="storedTotalClicks" value={{totalClicks}}>
 
 <div class="grid-container">
-        <div style="grid-column: 2; grid-row: 1/ span 2">
+        <div style="grid-column: 2; grid-row: 1/ span 2; border: solid black 2px">
             <div onclick="clicker.lvlUp()">
                 Clicker<br>
                 lvl: <span id="clickerLvl"></span><br>
@@ -24,15 +24,11 @@
             <span id="autoclickarea"></span>
         </div>
 
-        <div style="grid-column: 3; text-align: center">
+        <div style="grid-column: 3/ span 2; grid-row: 1/span 2; background: url('Background pattern.jpg') center; text-align: center;" onclick="clicker.click()">
             clicks: <span id="clicks"></span><br>
             total clicks: <span id="totalClicks"></span>
         </div>
-        <div style="grid-column: 3; grid-row: 2" onclick="clicker.click()">
-            I am a Placeholder!
-        </div>
-
-</div>
+    </div>
 </body>
 
 <script src="Clicker.js" type="application/javascript" charset="UTF-8"></script>
