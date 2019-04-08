@@ -1,5 +1,15 @@
 .grid-container{
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
+    grid-template-rows: 75vh;
+}
 
+
+.ClickerTextArea{
+    grid-column: 2/ span 4;
+    grid-row: 1;
+    background: url('Background pattern.jpg')
+        center;
+    text-align: center;
+    color: white;
 }

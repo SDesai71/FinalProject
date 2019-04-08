@@ -11,7 +11,6 @@ class Clicker{
     constructor(lvl){
         this.lvl = parseInt(lvl);
         this.nextPrice = 10*this.lvl;
-
         this.lvlDisplay = document.getElementById('clickerLvl');
         this.priceDisplay = document.getElementById('lvlprice');
         this.display();
@@ -19,13 +18,13 @@ class Clicker{
     }
 
     click(){
-        clicks += this.lvl;
-        total_clicks += this.lvl;
+        window.clicks += this.lvl;
+        window.total_clicks += this.lvl;
         this.display();
     }
     lvlUp(){
-        if(clicks >= this.nextPrice) {
-            clicks -= this.nextPrice;
+        if(window.clicks >= this.nextPrice) {
+            window.clicks -= this.nextPrice;
             this.nextPrice += 10*this.lvl;
             this.lvl += 1;
             this.sender();
@@ -40,18 +39,22 @@ class Clicker{
     }
 
     display(){
-    numclicks.innerHTML = clicks;
-    totalclicks.innerHTML= total_clicks;
+    numclicks.innerHTML = window.clicks;
+    totalclicks.innerHTML= window.total_clicks;
+    }
+    getlvl(){
+        return this.lvl
     }
 }
 
 
 class AutoClicker{
     //This will be the automated clickers
-    constructor(lvl,price,name){
+    constructor(lvl,price,name,value,interval){
         this.lvl = lvl;
-        this.nextPrice = price*this.lvl+100;
-        this.interval = 5/this.lvl*1000;
+        this.value = value;
+        this.nextPrice = price*(this.lvl+1);
+        this.interval = interval;
 
         this.area = document.createElement("div");
         this.area.id = name+'autoclick';
@@ -80,19 +83,19 @@ class AutoClicker{
 
     click(){
         if(this.lvl >= 1){
-        clicks += 1;
-        total_clicks += 1;
-        this.display();
+            window.clicks += this.value;
+            window.total_clicks += this.value;
+            this.display();
         }
     }
 
     lvlUp(){
-        if(clicks >= this.nextPrice) {
-            clicks -= this.nextPrice;
+        if(window.clicks >= this.nextPrice) {
+            window.clicks -= this.nextPrice;
             this.nextPrice += 10*this.lvl;
             this.lvl += 1;
             clearInterval(this.autoclicker);
-            this.interval = 5/this.lvl*1000;
+            this.interval = this.interval/this.lvl;
             this.autoclicker = setInterval(this.click.bind(this), this.interval);
             this.sender();
         }
@@ -106,6 +109,10 @@ class AutoClicker{
     display(){
         numclicks.innerHTML = clicks;
         totalclicks.innerHTML= total_clicks;
+    }
+
+    getlvl(){
+        return this.lvl
     }
 }
 
@@ -121,8 +128,13 @@ function xhrsend(){
         {
             Clicks: numclicks.innerHTML,
             totalClicks: totalclicks.innerHTML,
-            lvl: document.getElementById("clickerLvl").innerHTML,
-            autolvl: document.getElementById("AutoClicklvl").innerHTML
+            lvl: clicker.getlvl(),
+            Lionel: Messi.getlvl(),
+            Chritiano: Ronaldo.getlvl(),
+            Paul: Pogba.getlvl(),
+            Eden: Hazard.getlvl(),
+            Neymar: Neymar.getlvl(),
+            Zlatan: Zlatan.getlvl()
         };
     xhr.send(JSON.stringify(data));
 }
@@ -130,18 +142,16 @@ function xhrsend(){
 getscores = getxhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200){
         stats = JSON.parse(this.response);
-        numclicks.innerHTML = parseInt(this.response[0].Clicks);
-        document.getElementById('storedTotalClicks').value = parseInt(stats[0].totalClicks);
-        document.getElementById('storedclicks').value = stats[0].Clicks;
+        window.total_clicks = parseInt(stats[0].totalClicks);
+        window.clicks = parseInt(stats[0].Clicks);
 
         clicker = new Clicker(stats[0].lvl);
-        Messi = new AutoClicker(parseInt(stats[0].autolvl),20,'Lionel Messi');
-        Ronaldo = new AutoClicker(0,100,'Cristiano Ronaldo');
-        Pogba = new AutoClicker(0,100,'Paul Pogba');
-        Hazard = new AutoClicker(0,100,'Eden Hazard');
-        Neymar = new AutoClicker(0,100,'Neymar');
-        Zlatan = new AutoClicker(0,100,'Zlatan Ibrahimovic');
-        console.log('built');
+        Messi = new AutoClicker(stats[0].Lionel,200,'Lionel Messi',1,2000);
+        Ronaldo = new AutoClicker(stats[0].Chritiano,500,'Cristiano Ronaldo',5,2000);
+        Pogba = new AutoClicker(stats[0].Paul,2000,'Paul Pogba',20,10000);
+        Hazard = new AutoClicker(stats[0].Eden,10000,'Eden Hazard',300,20000);
+        Neymar = new AutoClicker(stats[0].Neymar,35000,'Neymar',1000,40000);
+        Zlatan = new AutoClicker(stats[0].Zlatan,100000,'Zlatan Ibrahimovic',10000,50000);
 
         setInterval(xhrsend, 15000);
     }
@@ -154,5 +164,3 @@ function xhrget() {
 
 xhrget();
 
-let clicks = parseInt(document.getElementById('storedclicks').value);
-let total_clicks = parseInt(document.getElementById('storedTotalClicks').value);

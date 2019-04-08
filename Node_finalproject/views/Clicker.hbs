@@ -13,7 +13,7 @@
 <input type="hidden" id="storedTotalClicks" value='0'>
 
 <div class="grid-container" style="width: 100vw; height: 80vh">
-        <div style="grid-column: 1; grid-row: 1/ span 2; border: solid black 2px">
+        <div style="grid-column: 1; grid-row: 1; border: solid black 2px">
             <div onclick="clicker.lvlUp()">
                 Clicker<br>
                 lvl: <span id="clickerLvl"></span><br>
@@ -23,7 +23,7 @@
             <span id="autoclickarea"></span>
         </div>
 
-        <div style="grid-column: 2/ span 4; grid-row: 1/span 2; background: url('Background pattern.jpg') center; text-align: center;">
+        <div class="ClickerTextArea">
             clicks: <span id="clicks"></span><br>
             total clicks: <span id="totalClicks"></span>
             <div style="height: 100%;" onclick="clicker.click()">
