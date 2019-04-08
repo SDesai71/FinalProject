@@ -18,6 +18,11 @@ app.set('view engine','hbs');
 app.use(express.static(__dirname+'/views/public'));
 app.use(express.static(__dirname+'/views'));
 
+
+app.get('/',(request,response)=>{
+    response.render('login.hbs')
+});
+
 app.get('/clicker',(request, response)=>{
     if (request.signedCookies.ID == undefined){
         response.redirect('/')
@@ -38,8 +43,16 @@ app.get('/clicker',(request, response)=>{
     }
 });
 
-app.get('/',(request,response)=>{
-    response.render('login.hbs')
+//will use eventually
+app.get('/getstats',(req,res)=>{
+    MongoClient.connect(uri,{useNewUrlParser: true}, (err,client)=>{
+        var database = client.db('Clicker');
+        database.collection('Scores').find({_id: req.signedCookies.ID}).toArray((err,result)=>{
+            if (err) res.send('Error querying database!');
+            //console.log(result);
+            res.send(result)
+        })
+    })
 });
 
 
@@ -94,6 +107,7 @@ app.get('/logout',(req,response)=> {
     response.clearCookie('ID');
     response.redirect('/')
 });
+
 app.get('/getscores',(req,res)=>{
     MongoClient.connect(uri,{useNewUrlParser: true}, (err,client)=>{
         var database = client.db('Clicker');

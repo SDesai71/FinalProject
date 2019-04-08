@@ -2,11 +2,14 @@ var xhr = new window.XMLHttpRequest(),
     method = "post",
     url = "http://localhost:8080/update";
 
-//this is where the game will be made
+var getxhr = new window.XMLHttpRequest(),
+    getmethod = "get",
+    geturl = "http://localhost:8080/getstats";
+
 class Clicker{
     //This will be the actual button that the user clicks on :)
     constructor(lvl){
-        this.lvl =lvl;
+        this.lvl = parseInt(lvl);
         this.nextPrice = 10*this.lvl;
 
         this.lvlDisplay = document.getElementById('clickerLvl');
@@ -107,8 +110,6 @@ class AutoClicker{
 }
 
 
-let clicks = parseInt(document.getElementById('storedclicks').value);
-let total_clicks = parseInt(document.getElementById('storedTotalClicks').value);
 var autoclickarea = document.getElementById('autoclickarea');
 var numclicks = document.getElementById('clicks');
 var totalclicks = document.getElementById('totalClicks');
@@ -126,4 +127,32 @@ function xhrsend(){
     xhr.send(JSON.stringify(data));
 }
 
-setInterval(xhrsend, 15000);
+getscores = getxhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200){
+        stats = JSON.parse(this.response);
+        numclicks.innerHTML = parseInt(this.response[0].Clicks);
+        document.getElementById('storedTotalClicks').value = parseInt(stats[0].totalClicks);
+        document.getElementById('storedclicks').value = stats[0].Clicks;
+
+        clicker = new Clicker(stats[0].lvl);
+        cowboy_michal = new AutoClicker(parseInt(stats[0].autolvl),20,'AutoClick');
+        singer_michal = new AutoClicker(0,100,'anotherclicker');
+        worker_michal = new AutoClicker(0,100,'anotherclicker');
+        drunk_michal = new AutoClicker(0,100,'anotherclicker');
+        anotherclicker4 = new AutoClicker(0,100,'anotherclicker');
+        anotherclicker5 = new AutoClicker(0,100,'anotherclicker');
+        console.log('built');
+
+        setInterval(xhrsend, 15000);
+    }
+};
+
+function xhrget() {
+    getxhr.open(getmethod, geturl, true);
+    getxhr.send();
+}
+
+xhrget();
+
+let clicks = parseInt(document.getElementById('storedclicks').value);
+let total_clicks = parseInt(document.getElementById('storedTotalClicks').value);

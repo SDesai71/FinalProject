@@ -7,11 +7,10 @@
     <link rel="stylesheet" href="ClickerStyles.css">
 </head>
 <body>
-<h1>Node Clicker</h1>
 {{> Navbar}}
 <!--Initializes sent variables-->
-<input type="hidden" id="storedclicks" value={{clicks}}>
-<input type="hidden" id="storedTotalClicks" value={{totalClicks}}>
+<input type="hidden" id="storedclicks" value='0'>
+<input type="hidden" id="storedTotalClicks" value='0'>
 
 <div class="grid-container">
         <div style="grid-column: 2; grid-row: 1/ span 2; border: solid black 2px">
@@ -32,16 +31,5 @@
 </body>
 
 <script src="Clicker.js" type="application/javascript" charset="UTF-8"></script>
-<script>
-    clicker = new Clicker({{lvl}});
-    autoclick = new AutoClicker({{autolvl}},20,'AutoClick');
-    anotherclicker1 = new AutoClicker(0,100,'anotherclicker');
-    anotherclicker2 = new AutoClicker(0,100,'anotherclicker');
-    anotherclicker3 = new AutoClicker(0,100,'anotherclicker');
-    anotherclicker4 = new AutoClicker(0,100,'anotherclicker');
-    anotherclicker5 = new AutoClicker(0,100,'anotherclicker');
-
-    xhrsend()
-</script>
 
 </html>
