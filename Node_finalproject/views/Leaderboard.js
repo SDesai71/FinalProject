@@ -18,8 +18,8 @@ getscores = xhr.onreadystatechange = function () {
 
 
         for (var score = 0; score <= 9; score++){
-            unames += scores[score].Username+"\n";
-            uscore += scores[score].totalClicks+"\n";
+            unames += scores[score].Username+"\n\n";
+            uscore += scores[score].totalClicks+"\n\n";
         }
         document.getElementById('names').innerText = unames;
         document.getElementById('userscores').innerText = uscore;

@@ -66,10 +66,10 @@ class AutoClicker{
         this.button = document.createElement("button");
         this.button.innerHTML = name+"LvlUp";
 
-        this.area.append(document.createTextNode(name+"Level:"));
+        this.area.append(document.createTextNode(name+" Level:"));
         this.area.append(this.lvldisplay);
 
-        this.area.append(document.createTextNode(name+"LvlUpPrice: "));
+        this.area.append(document.createTextNode(name+" LvlUp Price: "));
         this.area.append(this.pricedisplay);
         this.area.append(document.createElement("hr"));
         autoclickarea.append(this.area);
@@ -135,12 +135,12 @@ getscores = getxhr.onreadystatechange = function () {
         document.getElementById('storedclicks').value = stats[0].Clicks;
 
         clicker = new Clicker(stats[0].lvl);
-        cowboy_michal = new AutoClicker(parseInt(stats[0].autolvl),20,'AutoClick');
-        singer_michal = new AutoClicker(0,100,'anotherclicker');
-        worker_michal = new AutoClicker(0,100,'anotherclicker');
-        drunk_michal = new AutoClicker(0,100,'anotherclicker');
-        anotherclicker4 = new AutoClicker(0,100,'anotherclicker');
-        anotherclicker5 = new AutoClicker(0,100,'anotherclicker');
+        Messi = new AutoClicker(parseInt(stats[0].autolvl),20,'Lionel Messi');
+        Ronaldo = new AutoClicker(0,100,'Cristiano Ronaldo');
+        Pogba = new AutoClicker(0,100,'Paul Pogba');
+        Hazard = new AutoClicker(0,100,'Eden Hazard');
+        Neymar = new AutoClicker(0,100,'Neymar');
+        Zlatan = new AutoClicker(0,100,'Zlatan Ibrahimovic');
         console.log('built');
 
         setInterval(xhrsend, 15000);

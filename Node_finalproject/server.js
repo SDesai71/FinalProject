@@ -32,11 +32,7 @@ app.get('/clicker',(request, response)=>{
             database.collection('Scores').findOne({_id: request.signedCookies.ID})
                 .then(function (doc) {
                     response.render('clicker.hbs',{
-                        username:doc.Username,
-                        lvl:doc.lvl,
-                        totalClicks: doc.totalClicks,
-                        clicks: doc.Clicks,
-                        autolvl:doc.autolvl
+                        username:doc.Username
                     });
                 })
         });
@@ -64,7 +60,7 @@ app.post('/login',(request,response)=>{
                 if(doc == null){
                     response.redirect('/');
                 }else{
-                    response.cookie('ID',doc._id,{maxAge : 1000*60*15, signed: true});
+                    response.cookie('ID',doc._id,{maxAge : 1000*60*120, signed: true});
                     response.redirect('/clicker');
                 }
             })
