@@ -2,14 +2,19 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const hbs = require('hbs');
 const MongoClient = require('mongodb').MongoClient;
-const bodyParser = require('body-parser');
-const uuid = require('uuid/v1');
+const bodyParser = require('body-parser'); //use it the forms for retrieving the data
+const uuid = require('uuid/v1'); //creates unique ID's
 
 const uri = "mongodb+srv://RJEakin:xgk6viue@node-cluster-sriig.mongodb.net/test?retryWrites=true";
 
 var app = express();
 
+<<<<<<< HEAD
 app.use(cookieParser('se cret'));
+=======
+//secret is used for signing cookies. Its used to parse and match cookie sessions       
+app.use(cookieParser('secret'));
+>>>>>>> acfadcba019bf1367e79543b1720ed9f2c297041
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 hbs.registerPartials(__dirname+'/views/partials');
@@ -32,13 +37,13 @@ app.get('/clicker',(request, response)=>{
             database.collection('Scores').findOne({_id: request.signedCookies.ID})
                 .then(function (doc) {
                     response.render('clicker.hbs',{
-                        username:doc.Username
+                        username:doc.Username //send the username to the navbar to the top right 
                     });
                 })
         });
     }
 });
-
+//ajax command
 app.get('/getstats',(req,res)=>{
     MongoClient.connect(uri,{useNewUrlParser: true}, (err,client)=>{
         var database = client.db('Clicker');
@@ -69,37 +74,38 @@ app.post('/login',(request,response)=>{
 });
 
 app.post('/register',(request,response)=>{
-   MongoClient.connect(uri, { useNewUrlParser: true }, (err, client) => {
-        let uid = uuid();
-        var database = client.db("Clicker");
-       database.collection('Users').findOne({Username: request.body.Username})
+  //creates a user and adds to our mongo database
+   MongoClient.connect(uri, { useNewUrlParser: true }, (err, client) => { //connecting
+        let uid = uuid(); // creates a unique ID
+        var database = client.db("Clicker"); //Connects to our clicker database
+       database.collection('Users').findOne({Username: request.body.Username}) //Check if user already exists
            .then(function (doc) {
                if(doc == null){
-                   //console.log('User does not exist');
+                   //'User does not exist'
                    database.collection("Users").insertOne({
                        _id: uid,
-                       Username: request.body.Username,
+                       Username: request.body.Username,   // This inserts the new user into the database. Users collection
                        Password: request.body.Password
                    });
-                   database.collection("Scores").insertOne({
+                   database.collection("Scores").insertOne({ //Creates a game state for that user
                        _id: uid,
                        Username: request.body.Username,
-                       Clicks: 0,
-                       totalClicks: 0,
-                       lvl: 1,
+                       Clicks: 0, //currency to buy levels 
+                       totalClicks: 0, //total
+                       lvl: 1, //what level user currently is on
                        Lionel: 0,
-                       Chritiano: 0,
+                       Chritiano: 0, //all the scores of the clicker game 
                        Paul: 0,
-                       Eden: 0,
+                       Eden: 0, //the autos 
                        Neymar: 0,
                        Zlatan: 0
                    });
                    //console.log("User added to database");
-                   response.cookie('ID',uid,{signed:true});
+                   response.cookie('ID',uid,{signed:true}); //when the user is added it redirects to the game page. Three params; name , value, option
                    response.redirect('/clicker');
                }else{
                    //console.log('Did not write to database');
-                   response.render('login.hbs',{
+                   response.render('login.hbs',{                // If username is already in use redirects to login page again with error message.
                        Registermsg:'Username already in use!'
                    });
                }
@@ -108,10 +114,11 @@ app.post('/register',(request,response)=>{
 });
 
 app.get('/logout',(req,response)=> {
-    response.clearCookie('ID');
+    response.clearCookie('ID');// clears the login cookie
     response.redirect('/')
 });
 
+//ajax command
 app.get('/getscores',(req,res)=>{
     MongoClient.connect(uri,{useNewUrlParser: true}, (err,client)=>{
         var database = client.db('Clicker');
@@ -127,7 +134,7 @@ app.get('/leaderboard',(req,res)=>{
     res.render('leaderboard.hbs');
 });
 
-
+//ajax command
 app.post('/update',(req,res)=> {
     try {
         let query = {_id: req.signedCookies.ID};
