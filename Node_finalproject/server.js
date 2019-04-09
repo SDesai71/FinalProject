@@ -4,6 +4,7 @@ const hbs = require('hbs');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser'); //use it the forms for retrieving the data
 const uuid = require('uuid/v1'); //creates unique ID's
+const port = process.env.PORT || 8080;
 
 const uri = "mongodb+srv://RJEakin:xgk6viue@node-cluster-sriig.mongodb.net/test?retryWrites=true";
 
@@ -143,6 +144,6 @@ app.post('/update',(req,res)=> {
     })
 });
 
-app.listen(8080,() =>{
-   console.log(('server is up and listing on port 8080'))
+app.listen(port,() =>{
+   console.log((`server is up and listing on port ${port}`))
 });
