@@ -58,7 +58,9 @@ app.post('/login',(request,response)=>{
         database.collection('Users').findOne({Username: request.body.Username, Password: request.body.Password})
             .then(function (doc) {
                 if(doc == null){
-                    response.redirect('/');
+                    response.render('login.hbs',{
+                        loginmsg: 'Username or Password Incorrect'
+                    });
                 }else{
                     response.cookie('ID',doc._id,{maxAge : 1000*60*120, signed: true});
                     response.redirect('/clicker');
@@ -83,17 +85,24 @@ app.post('/register',(request,response)=>{
                    database.collection("Scores").insertOne({
                        _id: uid,
                        Username: request.body.Username,
-                       totalClicks: 0,
                        Clicks: 0,
+                       totalClicks: 0,
                        lvl: 1,
-                       autolvl:0
+                       Lionel: 0,
+                       Chritiano: 0,
+                       Paul: 0,
+                       Eden: 0,
+                       Neymar: 0,
+                       Zlatan: 0
                    });
                    //console.log("User added to database");
                    response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
                    response.redirect('/clicker');
                }else{
                    console.log('Did not write to database');
-                   response.redirect('/');
+                   response.render('login.hbs',{
+                       Registermsg:'Username allready in use!'
+                   });
                }
            })
    });
