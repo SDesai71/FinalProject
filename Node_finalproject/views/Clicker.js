@@ -25,7 +25,7 @@ class Clicker{
     lvlUp(){
         if(window.clicks >= this.nextPrice) {
             window.clicks -= this.nextPrice;
-            this.nextPrice += 10*this.lvl;
+            this.nextPrice += this.nextPrice*1.5;
             this.lvl += 1;
             this.sender();
         }
@@ -92,7 +92,7 @@ class AutoClicker{
     lvlUp(){
         if(window.clicks >= this.nextPrice) {
             window.clicks -= this.nextPrice;
-            this.nextPrice += 10*this.lvl;
+            this.nextPrice += this.nextPrice*1.5;
             this.lvl += 1;
             clearInterval(this.autoclicker);
             this.interval = this.interval/this.lvl;
