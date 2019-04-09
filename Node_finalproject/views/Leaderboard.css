@@ -18,3 +18,23 @@ div a {
 .user{
 	float:right;
 }
+
+.leader {
+  display: table;         
+  width: 100%;         
+  background-color: rgba(0, 0, 0, 0.5);         
+  border: 0px solid #666666;         
+  border-spacing: 10px;
+}
+/*.leader-row {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+.leader-col {
+  float: left; 
+  display: table-column;         
+  width: 1000px;         
+  background-color: #ccc;  
+}
+*/
