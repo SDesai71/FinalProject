@@ -9,7 +9,7 @@ const uri = "mongodb+srv://RJEakin:xgk6viue@node-cluster-sriig.mongodb.net/test?
 
 var app = express();
 
-app.use(cookieParser('secret'));
+app.use(cookieParser('se cret'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 hbs.registerPartials(__dirname+'/views/partials');
@@ -118,7 +118,6 @@ app.get('/getscores',(req,res)=>{
         database.collection('Scores').find().project({Username: 1, totalClicks: 1, _id: 0}).toArray((err,result)=>{
             if (err) res.send('Error querying database!');
             result.sort(function (a,b) {return b.totalClicks - a.totalClicks});
-            //console.log(result);
             res.send(result)
         })
     })
@@ -130,14 +129,20 @@ app.get('/leaderboard',(req,res)=>{
 
 
 app.post('/update',(req,res)=> {
-    let query = {_id: req.signedCookies.ID};
-    let info = {$set:req.body};
-    MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
-        var database = client.db("Clicker");
-        database.collection('Scores').updateOne(query, info, function (err, res) {
-            if (err) throw err;
+    try {
+        let query = {_id: req.signedCookies.ID};
+        let info = {$set:req.body};
+        MongoClient.connect(uri, {useNewUrlParser: true}, (err, client) => {
+            if(err) throw err;
+            var database = client.db("Clicker");
+            database.collection('Scores').updateOne(query, info, function (err, res) {
+                if (err) throw err;
+            })
         })
-    })
+    }
+    catch (e) {
+        res.redirect('/')
+    }
 });
 
 app.listen(8080,() =>{
