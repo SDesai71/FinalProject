@@ -9,8 +9,6 @@
 <body>
 {{> Navbar}}
 <!--Initializes sent variables-->
-<input type="hidden" id="storedclicks" value='0'>
-<input type="hidden" id="storedTotalClicks" value='0'>
 
 <div class="grid-container" style="width: 100vw; height: 80vh">
         <div style="grid-column: 1; grid-row: 1; border: solid black 2px">
@@ -24,10 +22,8 @@
         </div>
 
         <div class="ClickerTextArea">
-            <div style="margin-top: 15%;">
             clicks: <span id="clicks"></span><br>
             total clicks: <span id="totalClicks"></span>
-            </div>
             <div style="height: 70%;" onclick="clicker.click()">
             </div>
         </div>

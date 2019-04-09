@@ -1,5 +1,6 @@
 unames = '';
 uscore = '';
+position = '';
 var xhr = new window.XMLHttpRequest(),
     method = "get",
     url = "http://localhost:8080/getscores";
@@ -20,7 +21,9 @@ getscores = xhr.onreadystatechange = function () {
         for (var score = 0; score <= 9; score++){
             unames += scores[score].Username+"\n\n";
             uscore += scores[score].totalClicks+"\n\n";
+            position += (1+score)+'. \n\n'
         }
+        document.getElementById('position').innerText = position;
         document.getElementById('names').innerText = unames;
         document.getElementById('userscores').innerText = uscore;
         }

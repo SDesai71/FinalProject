@@ -39,7 +39,6 @@ app.get('/clicker',(request, response)=>{
     }
 });
 
-//will use eventually
 app.get('/getstats',(req,res)=>{
     MongoClient.connect(uri,{useNewUrlParser: true}, (err,client)=>{
         var database = client.db('Clicker');
@@ -62,7 +61,7 @@ app.post('/login',(request,response)=>{
                         loginmsg: 'Username or Password Incorrect'
                     });
                 }else{
-                    response.cookie('ID',doc._id,{maxAge : 1000*60*120, signed: true});
+                    response.cookie('ID',doc._id,{signed: true});
                     response.redirect('/clicker');
                 }
             })
@@ -96,7 +95,7 @@ app.post('/register',(request,response)=>{
                        Zlatan: 0
                    });
                    //console.log("User added to database");
-                   response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
+                   response.cookie('ID',uid,{signed:true});
                    response.redirect('/clicker');
                }else{
                    //console.log('Did not write to database');

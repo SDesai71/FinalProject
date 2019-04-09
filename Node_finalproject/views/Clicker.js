@@ -25,8 +25,8 @@ class Clicker{
     lvlUp(){
         if(window.clicks >= this.nextPrice) {
             window.clicks -= this.nextPrice;
-            this.nextPrice = 10*(this.lvl*30);
             this.lvl += 1;
+            this.nextPrice = 10*(this.lvl*30);
             this.sender();
         }
     }
