@@ -9,12 +9,10 @@ const uri = "mongodb+srv://RJEakin:xgk6viue@node-cluster-sriig.mongodb.net/test?
 
 var app = express();
 
-<<<<<<< HEAD
-app.use(cookieParser('se cret'));
-=======
-//secret is used for signing cookies. Its used to parse and match cookie sessions       
+
+
+//secret is used for signing cookies. Its used to parse and match cookie sessions
 app.use(cookieParser('secret'));
->>>>>>> acfadcba019bf1367e79543b1720ed9f2c297041
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 hbs.registerPartials(__dirname+'/views/partials');
