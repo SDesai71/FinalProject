@@ -99,9 +99,9 @@ app.post('/register',(request,response)=>{
                    response.cookie('ID',uid,{maxAge : 1000*60*15, signed:true});
                    response.redirect('/clicker');
                }else{
-                   console.log('Did not write to database');
+                   //console.log('Did not write to database');
                    response.render('login.hbs',{
-                       Registermsg:'Username allready in use!'
+                       Registermsg:'Username already in use!'
                    });
                }
            })
