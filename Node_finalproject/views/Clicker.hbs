@@ -14,7 +14,7 @@
 
 <div class="grid-container" style="width: 100vw; height: 80vh">
         <div style="grid-column: 1; grid-row: 1; border: solid black 2px">
-            <div onclick="clicker.lvlUp()">
+            <div onclick="clicker.lvlUp()" id="clickerarea">
                 Clicker<br>
                 lvl: <span id="clickerLvl"></span><br>
                 LvlUp price: <span id="lvlprice"></span><br>
@@ -24,10 +24,11 @@
         </div>
 
         <div class="ClickerTextArea">
+            <div style="margin-top: 15%;">
             clicks: <span id="clicks"></span><br>
             total clicks: <span id="totalClicks"></span>
-            <div style="height: 100%;" onclick="clicker.click()">
-
+            </div>
+            <div style="height: 70%;" onclick="clicker.click()">
             </div>
         </div>
     </div>

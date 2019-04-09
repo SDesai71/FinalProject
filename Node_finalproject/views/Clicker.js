@@ -10,7 +10,7 @@ class Clicker{
     //This will be the actual button that the user clicks on :)
     constructor(lvl){
         this.lvl = parseInt(lvl);
-        this.nextPrice = 10*this.lvl;
+        this.nextPrice = 10*(this.lvl*30);
         this.lvlDisplay = document.getElementById('clickerLvl');
         this.priceDisplay = document.getElementById('lvlprice');
         this.display();
@@ -25,7 +25,7 @@ class Clicker{
     lvlUp(){
         if(window.clicks >= this.nextPrice) {
             window.clicks -= this.nextPrice;
-            this.nextPrice += this.nextPrice*1.5;
+            this.nextPrice = 10*(this.lvl*30);
             this.lvl += 1;
             this.sender();
         }
@@ -53,7 +53,8 @@ class AutoClicker{
     constructor(lvl,price,name,value,interval){
         this.lvl = lvl;
         this.value = value;
-        this.nextPrice = price*(this.lvl+1);
+        this.price = price;
+        this.nextPrice = price*((1+this.lvl)*30);
         this.interval = interval;
 
         this.area = document.createElement("div");
@@ -78,7 +79,7 @@ class AutoClicker{
         autoclickarea.append(this.area);
 
         this.sender();
-        this.autoclicker = setInterval(this.click.bind(this), this.interval)
+        this.autoclicker = setInterval(this.click.bind(this), this.interval/this.lvl)
     }
 
     click(){
@@ -92,8 +93,8 @@ class AutoClicker{
     lvlUp(){
         if(window.clicks >= this.nextPrice) {
             window.clicks -= this.nextPrice;
-            this.nextPrice += this.nextPrice*1.5;
             this.lvl += 1;
+            this.nextPrice = this.price*(this.lvl*30);
             clearInterval(this.autoclicker);
             this.interval = this.interval/this.lvl;
             this.autoclicker = setInterval(this.click.bind(this), this.interval);

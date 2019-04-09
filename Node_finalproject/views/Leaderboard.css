@@ -1,11 +1,8 @@
-/*body {
-  background: radial-gradient(circle, black, white);
-}
-*/
-
 body {
-  background: 
-   url(https://wallpapercave.com/wp/bn0yUBq.jpg) repeat; 
+    background:
+        url(https://wallpapercave.com/wp/bn0yUBq.jpg)
+        no-repeat;
+    background-size: cover;
 }
 
 div a {
