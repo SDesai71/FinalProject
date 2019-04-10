@@ -60,6 +60,7 @@ app.post('/login',(request,response)=>{
         var database = client.db("Clicker");
         database.collection('Users').findOne({Username: request.body.Username, Password: request.body.Password})
             .then(function (doc) {
+                console.log(doc);
                 if(doc == null){
                     response.render('login.hbs',{
                         loginmsg: 'Username or Password Incorrect'
