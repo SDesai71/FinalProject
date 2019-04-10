@@ -1,7 +1,7 @@
 body{
     width: 100vw;
     height: 100vh;
-    background-color: rgb(102, 255, 102);
+    background-color: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/652/confectionary.png);
 }
 
 .grid-container{

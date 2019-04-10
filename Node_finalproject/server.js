@@ -33,9 +33,9 @@ app.get('/clicker',(request, response)=>{
         MongoClient.connect(uri, { useNewUrlParser: true }, (err, client) => {
             var database = client.db("Clicker");
             database.collection('Scores').findOne({_id: request.signedCookies.ID})
-                .then(function (doc) {
+                .then(function (doc) { //user object from database
                     response.render('clicker.hbs',{
-                        username:doc.Username //send the username to the navbar to the top right 
+                        username:doc.Username //send the username to the navbar to the top right
                     });
                 })
         });
