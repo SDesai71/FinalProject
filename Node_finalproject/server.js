@@ -2,7 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const hbs = require('hbs');
 const MongoClient = require('mongodb').MongoClient;
-const bodyParser = require('body-parser'); //use it the forms for retrieving the data
+const bodyParser = require('body-parser'); //use it the forms for retrieving the data. Parse through the form data from POST
 const uuid = require('uuid/v1'); //creates unique ID's
 const port = process.env.PORT || 8080;
 
@@ -15,11 +15,10 @@ var app = express();
 //secret is used for signing cookies. Its used to parse and match cookie sessions
 app.use(cookieParser('secret'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended : true }));
+app.use(bodyParser.urlencoded({ extended : true })); //The middleware to handle url encoded data is returned 
 hbs.registerPartials(__dirname+'/views/partials');
 
 app.set('view engine','hbs');
-app.use(express.static(__dirname+'/views/public'));
 app.use(express.static(__dirname+'/views'));
 
 
