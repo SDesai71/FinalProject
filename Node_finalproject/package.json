@@ -12,7 +12,7 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
     "dont-sniff-mimetype": "^1.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "hbs": "^4.0.3",
     "helmet": "^3.16.0",
     "mongodb": "^3.2.2",
